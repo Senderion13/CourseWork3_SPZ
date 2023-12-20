@@ -1,14 +1,27 @@
 import { Injectable } from '@nestjs/common';
-
+import * as json from '../../database.json';
+import { userDto } from './user.dto';
 @Injectable()
 export class ApiService {
   getUserName(token: string) {
-    return token + ' name';
-  }
-  getUserIcon(token: string) {
-    return token + ' icon';
+    const usersList: userDto[] = json.users;
+    return usersList.find((user: userDto) => {
+      if (token == user.token) {
+        return true;
+      } else {
+        return false;
+      }
+    }).name;
   }
   getUserBio(token: string) {
-    return token + ' bio';
+    const usersList: userDto[] = json.users;
+    return usersList.find((user: userDto) => {
+      if (token == user.token) {
+        console.log(user.bio);
+        return true;
+      } else {
+        return false;
+      }
+    }).bio;
   }
 }

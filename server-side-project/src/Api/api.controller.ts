@@ -7,10 +7,6 @@ export class ApiController {
   getUserName(@Query('token') token: string) {
     return ApiService.prototype.getUserName(token);
   }
-  @Get('icon')
-  getUserIcon(@Query('token') token: string) {
-    return ApiService.prototype.getUserIcon(token);
-  }
   @Get('bio')
   getUserBio(@Query('token') token: string) {
     return ApiService.prototype.getUserBio(token);

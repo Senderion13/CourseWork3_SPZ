@@ -1,15 +1,21 @@
 import javax.swing.*;
+import javax.swing.text.Style;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Login {
-    String token = "";
 
     Login() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         // Create a new JFrame (window)
         JFrame frame = new JFrame("Login Window");
-        frame.setSize(300, 200);
+        frame.setSize(300, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create a JPanel with a BoxLayout
@@ -24,7 +30,7 @@ public class Login {
 
         // Create a JTextField for the username input
         JTextField userField = new JTextField();
-        userField.setMaximumSize(new Dimension(200, 20));
+        userField.setMaximumSize(new Dimension(200, 40));
 
         // Create a JLabel for the password
         JLabel passLabel = new JLabel("Password");
@@ -33,7 +39,7 @@ public class Login {
 
         // Create a JPasswordField for the password input
         JPasswordField passField = new JPasswordField();
-        passField.setMaximumSize(new Dimension(200, 20));
+        passField.setMaximumSize(new Dimension(200, 40));
 
         // Create a JButton for the login button
         JButton loginButton = new JButton("Login");
@@ -50,11 +56,10 @@ public class Login {
                         JOptionPane.showMessageDialog(frame, "Invalid Username or Password", "Error",
                                 JOptionPane.ERROR_MESSAGE);
                     } else {
-                        token = response;
+                        String token = response;
                         String name = new Api().getResponse("/api/name?token=" + token);
-                        ImageIcon icon = new ImageIcon(new Api().getResponse("/api/icon?token=" + token));
                         String bio = new Api().getResponse("/api/bio?token=" + token);
-                        new ProfileFrame(name, icon, bio);
+                        new ProfileFrame(name, bio);
                         frame.dispose();
                     }
                 } catch (Exception error) {

@@ -1,0 +1,23 @@
+
+services:
+  server-side-project:
+    image: "server-side-project"
+    build:
+      context: .
+      dockerfile: dockerfile
+    
+    ports:
+      - 4000:3000
+    volumes:
+    - ../server-side-project:/server-side-project
+  postgres:
+    image: postgres:14-bullseye
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: users
+    ports:
+    - 5432:5432
+    volumes:
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d

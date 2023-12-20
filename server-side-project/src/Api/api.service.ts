@@ -17,7 +17,6 @@ export class ApiService {
     const usersList: userDto[] = json.users;
     return usersList.find((user: userDto) => {
       if (token == user.token) {
-        console.log(user.bio);
         return true;
       } else {
         return false;
